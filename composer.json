@@ -1,0 +1,19 @@
+{
+    "name": "lol/information_plaform",
+    "description": "this is final project",
+    "type": "library",
+    "authors": [
+        {
+            "name": "ychen54",
+            "email": "ychen54@academic.rrc.ca"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+      "php": ">=7.0",
+      "filp/whoops":"*",
+      "catfan/medoo":"*",
+      "components/jquery": "2.1.*",
+      "twbs/bootstrap":"3.3.7"
+    }
+}
