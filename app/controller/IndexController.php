@@ -11,7 +11,8 @@ class IndexController extends \core\Starter
 
 	public function index()
 	{
-		var_dump("index");
+		//var_dump("index");
+		$this->display('index.php');
 	}
 	
 }

@@ -24,11 +24,19 @@ class Starter
 		if (is_file($ctrlFile)) {
 			include $ctrlFile;
 			$ctrl = new $ctrlClass;
-			$ctrl->$action();
+			$cls_methods = get_class_methods($ctrl);
+			if(in_array($action,$cls_methods)){
+				$ctrl->$action();
+			}else{
+				var_dump("can't find router which named ".$action);
+				header("Refresh:3;url=/cosc360-project-team-25");
+			}
 			//p();
-			Log::log("Controller:".ucfirst($route->ctrl).'Controller      action:'.$action);
+			//Log::log("Controller:".ucfirst($route->ctrl).'Controller      action:'.$action);
 		}else{
-			throw new \Exception("can't find controller which named ".$ctrlClass, 1);
+			var_dump("can't find controller which named ".$ctrlClass);
+			header("Refresh:3;url=/cosc360-project-team-25");
+			//throw new \Exception("can't find controller which named ".$ctrlClass, 1);
 		}
 		//p($route);
 
@@ -64,7 +72,9 @@ class Starter
 		$path = APP.'/views/'.$file;
 		//p($path);
 		if(is_file($path)){
-			extract($this->assign);
+			if($this->assign != null){
+				extract($this->assign);
+			}
 
 			/*$loader = new \Twig\Loader\FilesystemLoader(APP.'/views/');
 			$twig = new \Twig\Environment($loader, [
