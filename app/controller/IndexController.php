@@ -52,6 +52,26 @@ class IndexController extends \core\Starter
 		$this->display('register.php');
 	}
 
+	public function forget(){
+		$this->display('forget.php');
+	}
+
+	public function forget_check(){
+		$username = post('username');
+		$email = post('email');
+
+		$model = new UserModel();
+		$res = $model->getUserByUsernameAndEmail($username, $email);
+		if( empty($res) ){
+			$arr['code'] = -1;
+			$arr['msg'] = 'your email or username incorrect';
+		}else{
+			$arr['code'] = 1;
+			$arr['msg'] = $res['nick_name'].' ,your new password has been send to '.$res['email'];
+		}
+		echo json_encode($arr);
+	}
+
 	public function login_check(){
 		$username = post("username");
 		$password = post("password");

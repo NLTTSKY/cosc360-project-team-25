@@ -39,6 +39,11 @@ class UserModel extends Model{
 		$res = $this->get($this->table,'*',array('nick_name'=>$name));
 		return $res;
 	}
+
+	public function getUserByUsernameAndEmail($name, $email){
+		$res = $this->get($this->table,'*',array('nick_name'=>$name, 'email'=>$email));
+		return $res;
+	}
 }
 
 

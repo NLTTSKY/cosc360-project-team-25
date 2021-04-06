@@ -43,10 +43,10 @@
                 <div class="container">
                     <form action="/blog/index/login_check" method="POST">
                         <label for="username">UserName</label>
-                        <input type="text" id="username" class="te" name="username" placeholder="Your username">
+                        <input type="text" id="username" class="te" required="required" name="username" placeholder="Your username">
                         
                         <label for="password">Password</label>
-                        <input type="password" id="password" class="te" name="password" placeholder="Your password">
+                        <input type="password" id="password" class="te" required="required" name="password" placeholder="Your password">
 
                         <!-- <label for="country">Country</label>
                         <select id="country" name="country">
