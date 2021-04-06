@@ -13,7 +13,7 @@ function p($var){
 /**
  * get post value from html
  * @AuthorHTL
- * @DateTime  2020-11-12T16:18:57+0800
+ * @DateTime  2020-12-12T16:18:57+0800
  * @param     [type]                   $name    [name value]
  * @param     [type]                   $default [description]
  * @param     [type]                   $fitt    [description]
@@ -120,7 +120,7 @@ function checkEmail($email){
 
 
 // resize image size
-function resize_image($imgsrc,$imgdst,$imgwidth = 800,$imgheight= 450)
+function resize_image($imgsrc,$imgdst,$imgwidth = 320,$imgheight= 180)
 {
 	$imgsrc = UPLOAD.$imgsrc;
 	str_replace("\\","/",$imgsrc);

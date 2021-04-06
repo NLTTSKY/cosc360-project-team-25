@@ -76,5 +76,16 @@
 	}
 }
 
+a{
+	text-decoration: none;
+}
+
+
+.warn{
+	font-size: 12px; 
+	color:red;
+	margin-left: 20px;
+	visibility: hidden;
+}
 
 

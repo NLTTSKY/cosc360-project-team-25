@@ -14,7 +14,7 @@
 	define('UPLOAD', ROOT_PATH.'/public/img/');
 
 	define('MODULE', 'app');
-	define('PROJECT', '/cosc360-project-team-25/');
+	define('PROJECT', '/blog/');
 
 	define('DEBUG', true);
 

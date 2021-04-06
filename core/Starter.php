@@ -29,13 +29,13 @@ class Starter
 				$ctrl->$action();
 			}else{
 				var_dump("can't find router which named ".$action);
-				header("Refresh:3;url=/cosc360-project-team-25");
+				header("Refresh:3;url=".PROJECT);
 			}
 			//p();
 			//Log::log("Controller:".ucfirst($route->ctrl).'Controller      action:'.$action);
 		}else{
 			var_dump("can't find controller which named ".$ctrlClass);
-			header("Refresh:3;url=/cosc360-project-team-25");
+			header("Refresh:3;url=".PROJECT);
 			//throw new \Exception("can't find controller which named ".$ctrlClass, 1);
 		}
 		//p($route);
