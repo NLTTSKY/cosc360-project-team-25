@@ -49,7 +49,7 @@
                         <label for="email">Email</label>
                         <input type="email" id="email" required="required" class="te" name="email" placeholder="Your email">                      
                         <input type="button" value="Submit" class="sub" id="sub">
-                      </form>
+                    </form>
                 </div>
             </div>
 

@@ -14,6 +14,7 @@ class ArticleModel extends Model{
 		$res = $this->get($this->table,'*',array('article_no'=>$id));
 		return $res;
 	}
+
 	public function addOne($data){
 		$res = $this->insert($this->table,$data);
 		return $this->id();
@@ -44,5 +45,19 @@ class ArticleModel extends Model{
 		$sql .= " AND (a.title LiKE '%".$keyword."%'  OR a.content LIKE '%".$keyword."%') ORDER BY a.last_update_time DESC ";
 		$res = $this->query($sql)->fetchAll();
 		return $res;
+	}
+
+	public function getArticleByUser($uid){
+		$res = $this->select($this->table,'*',array('uid'=>$uid));
+		return $res;
+	}
+
+	public function getAllArticleByUser($id){
+		$res = $this->query("SELECT a.article_no,a.title, c.cate_name, a.click, a.verify,a.create_time FROM articles a LEFT JOIN categories c ON a.cate_id = c.cate_id WHERE uid='".$id."'")->fetchAll();
+		return $res;
+	}
+
+	public function addClick($id){
+		$res = $this->query("UPDATE articles SET click=click+1 WHERE article_no='".$id."'");
 	}
 }

@@ -66,8 +66,10 @@ class IndexController extends \core\Starter
 			$arr['code'] = -1;
 			$arr['msg'] = 'your email or username incorrect';
 		}else{
+			$data['password'] = password_hash('123456', PASSWORD_DEFAULT);
+			$model->updatePassword($data, $res['uid']);
 			$arr['code'] = 1;
-			$arr['msg'] = $res['nick_name'].' ,your new password has been send to '.$res['email'];
+			$arr['msg'] = $res['nick_name'].' ,your new password(123456) has been send to '.$res['email'];
 		}
 		echo json_encode($arr);
 	}
@@ -160,7 +162,7 @@ class IndexController extends \core\Starter
 		unset($_SESSION['uid']);
 		unset($_SESSION['nickname']);
 		unset($_SESSION['type']);
-		succ_jump("index/index", "Logout Successfully!");
+		succ_jump("/blog/index/index", "Logout Successfully!");
 	}
 
 	public function check_name(){

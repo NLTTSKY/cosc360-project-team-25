@@ -15,6 +15,8 @@
 
 	define('MODULE', 'app');
 	define('PROJECT', '/blog/');
+	
+	define('IMG_PATH', PROJECT.'public/img/');
 
 	define('DEBUG', true);
 

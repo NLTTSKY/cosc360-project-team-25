@@ -6,11 +6,12 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <!-- <link rel='stylesheet' href='/blog/vendor/twbs/bootstrap/dist/css/bootstrap.css' type='text/css'> -->
     <link rel='stylesheet' href='/blog/public/css/common.css' type='text/css'>
-    <link rel='stylesheet' href='/blog/public/css/index.css' type='text/css'>
+    <!-- <link rel='stylesheet' href='/blog/public/css/index.css' type='text/css'> -->
+    <link rel='stylesheet' href='/blog/public/css/admin.css' type='text/css'>
     <script type='text/javascript' src='/blog/vendor/components/jquery/jquery.min.js'></script>
     <script type='text/javascript' src='/blog/vendor/twbs/bootstrap/dist/js/bootstrap.js'></script>
     <script type='text/javascript' src='/blog/public/js/common.js'></script>
-    <title>Blog</title>
+    <title>Person Profile</title>
 </head>
 
 <body>
@@ -28,34 +29,38 @@
             </div>
         </div>
 
-         <div id="main-left"></div>
+         <div id="main-left">
+            <?php include 'admin_menu.php'; ?>
+         </div>
 
          <div id="main-center">
 
              <div id="crumbs">
               <ul>
-                <?php if(isset($cate_id) && $cate_id != null){echo "<li><a href='/blog/'>Home</a></li>
-                <li><a href='#'>category:".$cate[$cate_id]."</a></li>";} ?>
-                <?php if(isset($keyword) && $keyword != null){echo "<li><a href='/blog/'>Home</a></li>
-                <li><a href='#'>keyword:".$keyword."</a></li>";} ?>
-                <?php if(!isset($keyword) && !isset($cate_id)){echo "<li><a href='#'>Home</a></li>";} ?>
+                <li><a href='/blog/admin/index'>Admin</a></li>
+                <li><a href='#'>Person Profile</a></li>
               </ul>
              </div>
             <hr style="margin-top: 35px;" />
             <div class="content">
-                <?php foreach($articles as $k=>$v): ?>
-                    <div class="blog">
-                        <div class="blog-head">
-                            <span style="font-size: 20px;font-weight: bold;"> 
-                            <a href="/blog/index/article/id/<?php echo $v['article_no']; ?>"><?php echo $v['title']; ?></a></span> 
-                            <span style="float: right;">click: <?php echo $v['click']; ?></span>
-                        </div>
-                        <div class="blog-body">
-                           Catgory: <span style="font-size: 16px;"><a href="/blog/index/category/id/<?php echo $v['cate_id']; ?>"><?php echo $v['cate_name']; ?></a></span> 
-                            <span style="float: right;">last edit time: <?php echo $v['last_update_time']; ?></span> 
-                        </div>  
-                    </div>
-                <?php endforeach; ?>
+              <div class="img" style="float: left;">
+                <img src="<?php echo IMG_PATH.$loginUser['profile_path']; ?>">
+              </div>
+              <div class="detail" style="float: left;margin-left: 20px;">
+                <h1><?php echo $loginUser['nick_name']; ?> </h1>
+                <hr>
+                <p class="pname">RealName: <span class="pvalue"><?php echo $loginUser['realname']; ?></span> </p>
+                <p class="pname">Email: <span class="pvalue"><?php echo $loginUser['email']; ?></span> </p>
+                <p class="pname">Phone: <span class="pvalue"><?php echo $loginUser['phone']; ?></span> </p>
+                <p class="pname">Register Time: <span class="pvalue"><?php echo $loginUser['create_time']; ?></span> </p>
+                <p class="pname">Last Edit Time: <span class="pvalue"><?php echo $loginUser['last_update_time']; ?></span> </p>
+                <hr>
+                <p class="pname">Article Number: <span class="pvalue"><?php echo $articleCount; ?></span> </p>
+                <p class="pname">Comment Number: <span class="pvalue"><?php echo $commentCount; ?></span> </p>
+                <hr>
+                <a href="/blog/admin/edit_profile"><button class="primary" style="width: 100%;">Edit Profile</button></a>
+                <a href="/blog/admin/change_password"><button class="warning" style="width: 100%;">Change Password</button></a>
+              </div>
             </div>
 
          </div>
@@ -65,6 +70,14 @@
 
     <?php include 'message.php'; ?>
 </body>
+<script type="text/javascript">
+  $(function(){
+    $("#index-nav").addClass("active");
+
+
+  })
+
+</script>
 
 </html>
 

@@ -44,6 +44,11 @@ class UserModel extends Model{
 		$res = $this->get($this->table,'*',array('nick_name'=>$name, 'email'=>$email));
 		return $res;
 	}
+
+	public function updatePassword($data, $id){
+		$re = $this->update($this->table,$data,array('uid'=>$id));
+		return $re->rowCount();
+	}
 }
 
 
