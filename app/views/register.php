@@ -73,7 +73,7 @@
                         <button type="button" class="btn btn-info btn-sm" id="change_captcha">change</button>
                         <input type="text" id="captcha" class="te" name="captcha" required="required" placeholder="captcha">
                         <input type="submit" value="Register" class="sub" id="sub">
-                      </form>
+                    </form>
                 </div>
             </div>
 

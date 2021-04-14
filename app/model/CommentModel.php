@@ -36,13 +36,13 @@ class CommentModel extends Model{
 	}
 
 	public function getCommentByArticle($id){
-		$res = $this->query("SELECT content, create_time FROM article_comments WHERE verify=1 AND article_no='".$id."'")->fetchAll();
+		$res = $this->query("SELECT content, create_time FROM article_comments WHERE article_no='".$id."' ORDER BY create_time DESC")->fetchAll();
 		return $res;
 	}
 
 	public function getAllComment(){
-		$sql = "SELECT ac.comment_no, a.title, ac.content, ac.create_time, ac.verify ";
-		$sql .= " FROM article_comments ac JOIN articles a ON ac.article_no = a.article_no ";
+		$sql = "SELECT ac.comment_no, a.title, ac.content, ac.create_time ";
+		$sql .= " FROM article_comments ac JOIN articles a ON ac.article_no = a.article_no ORDER BY ac.create_time DESC";
 		$res = $this->query($sql)->fetchAll();
 		return $res;
 	}
@@ -50,7 +50,7 @@ class CommentModel extends Model{
 	public function getAllCommentByUser($id){
 		$sql = "SELECT ac.comment_no, a.title, ac.content, ac.create_time, ac.verify ";
 		$sql .= " FROM article_comments ac JOIN articles a ON ac.article_no = a.article_no ";
-		$sql .= " WHERE ac.article_no IN (SELECT article_no FROM articles WHERE uid = '".$id."') ";
+		$sql .= " WHERE ac.article_no IN (SELECT article_no FROM articles WHERE uid = '".$id."') ORDER BY ac.create_time DESC ";
 		$res = $this->query($sql)->fetchAll();
 		return $res;
 	}
@@ -58,6 +58,11 @@ class CommentModel extends Model{
 	public function getCommentByUser($uid){
 		$ret = $this->select($this->table, '*', array('uid'=>$uid));
 		return $ret;
+	}
+
+	public function deleteCommentByArticle($id){
+		$re = $this->delete($this->table,array('article_no'=>$id));
+		return $re->rowCount();
 	}
 
 }

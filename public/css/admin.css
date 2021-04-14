@@ -494,3 +494,77 @@ button.danger {
     border-radius: 4px;
     cursor: pointer;
 }
+
+
+
+button.primary-sm {
+    width: 30%;
+    background-color: #296294;
+    color: white;
+    padding: 6px 9px;
+    margin: 2px 0;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+button.info-sm {
+    width: 30%;
+    background-color: #5bc0de;
+    color: white;
+    padding: 6px 9px;
+    margin: 2px 0;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    border-color: #28a4c9;
+}
+
+button.success-sm {
+    width: 30%;
+    background-color: #28a4c9;
+    color: white;
+    padding: 6px 9px;
+    margin: 2px 0;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+
+button.warning-sm {
+    width: 30%;
+    background-color: #ED9A25;
+    color: white;
+    padding: 6px 9px;
+    margin: 2px 0;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+button.danger-sm {
+    width: 30%;
+    background-color: #C12E2A;
+    color: white;
+    padding: 6px 9px;
+    margin: 2px 0;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+textarea.content{
+    width: 100%;
+}
+
+.option{
+    margin: 100px;
+    width: 140px;
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ccc;
+    border: 1px solid #cccccc;
+    position: relative;
+    font-size: 15px;
+  }

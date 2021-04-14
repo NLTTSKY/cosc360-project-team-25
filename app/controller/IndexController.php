@@ -2,6 +2,7 @@
 namespace app\controller;
 use \app\model\ArticleModel;
 use \app\model\UserModel;
+use \app\model\CommentModel;
 
 class IndexController extends \core\Starter
 {
@@ -18,6 +19,37 @@ class IndexController extends \core\Starter
 		$articles = $articleModel->getVerifyArticle();
 		$this->assign('articles', $articles);
 		$this->display('index.php');
+	}
+
+	public function article(){
+		$id = get('id');
+		$articleModel = new ArticleModel();
+		$article = $articleModel->getVerifyArticleById($id);
+		if($article){
+			$articleModel->addClick($id);
+		}
+		
+		//die();
+		$commentModel = new CommentModel();
+		$comments = $commentModel->getCommentByArticle($id);
+		if(empty($article)){
+			fail_jump("/blog/index/index", "there is no article with id ".$id.", or this article wait to comfirm");
+			return;
+		}
+		//var_dump($article);
+		//var_dump($comments);
+		$this->assign('article', $article[0]);
+		$this->assign('comments', $comments);
+		$this->display('article.php');
+	}
+
+	public function get_article_comments(){
+		$article_no = get('article_no');
+		$commentModel = new CommentModel();
+		$comments = $commentModel->getCommentByArticle($article_no);
+		$arr['code'] = 1;
+		$arr['data'] = $comments;
+		echo json_encode($arr);
 	}
 
 	public function category(){
@@ -84,7 +116,11 @@ class IndexController extends \core\Starter
 		}
 		$model = new UserModel();
 		$res = $model->getOneByName($username);
-		if($res && password_verify($password,$res['password']) && $res['disabled'] == 0){
+		if($res['disabled'] == 1){
+			fail_jump("/blog/index/login", "the account is disabled now, please contact administrator");
+			return;
+		}
+		if($res && password_verify($password,$res['password']) ){
 			$_SESSION['uid'] = $res['uid'];
 			$_SESSION['nickname'] = $res['nick_name'];
 			$_SESSION['type'] = $res['type'];
@@ -92,7 +128,7 @@ class IndexController extends \core\Starter
 			succ_jump("/blog/admin/index", "Login Successfully");
 			return;
 		}else{
-			fail_jump("/blog/index/login", "password error, or the account is disabled now");
+			fail_jump("/blog/index/login", "password error");
 			return;
 		}
 	}

@@ -61,7 +61,7 @@
                         </label>
                         <input type="password" onblur="checkRepaeat()" id="repassword" class="te" required="required" name="repassword" placeholder="Repeat password">
                         
-                        <input type="button" value="Register" class="sub" id="sub">
+                        <input type="button" value="Submit" class="sub" id="sub">
                   </form>
               </div>
             </div>
