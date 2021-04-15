@@ -47,6 +47,14 @@ class CommentModel extends Model{
 		return $res;
 	}
 
+	public function getCommentByUid($uid){
+		$sql = "SELECT ac.comment_no, ac.article_no, ac.content, a.title, c.cate_name, ac.create_time FROM article_comments ac ";
+		$sql .= " LEFT JOIN articles a ON  ac.article_no = a.article_no LEFT JOIN categories c ON a.cate_id = c.cate_id ";
+		$sql .= " WHERE ac.uid = '".$uid."' ORDER BY ac.create_time DESC ";
+		$res = $this->query($sql)->fetchAll();
+		return $res;
+	}
+
 	public function getAllCommentByUser($id){
 		$sql = "SELECT ac.comment_no, a.title, ac.content, ac.create_time, ac.verify ";
 		$sql .= " FROM article_comments ac JOIN articles a ON ac.article_no = a.article_no ";
@@ -62,6 +70,11 @@ class CommentModel extends Model{
 
 	public function deleteCommentByArticle($id){
 		$re = $this->delete($this->table,array('article_no'=>$id));
+		return $re->rowCount();
+	}
+
+	public function deleteComment($comment_no, $uid){
+		$re = $this->delete($this->table,array('comment_no'=>$comment_no, 'uid'=>$uid));
 		return $re->rowCount();
 	}
 

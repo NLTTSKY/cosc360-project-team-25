@@ -49,6 +49,16 @@ class UserModel extends Model{
 		$re = $this->update($this->table,$data,array('uid'=>$id));
 		return $re->rowCount();
 	}
+
+	public function disableUser($id){
+		$re = $this->update($this->table,array('disabled'=>1),array('uid'=>$id));
+		return $re->rowCount();
+	}
+
+	public function enableuser( $id){
+		$re = $this->update($this->table,array('disabled'=>0),array('uid'=>$id));
+		return $re->rowCount();
+	}
 }
 
 

@@ -249,7 +249,12 @@ class AdminController extends \core\Starter
 		$data['uid'] = $_SESSION['uid'];
 		$data['last_update_time'] = date("Y-m-d H:i:s", time());
 		$artmodel->setOne($data['article_no'], $data);
-		succ_jump("/blog/admin/my_articles","edit article successfully!");
+		if($_SESSION['type'] != 'admin'){
+			succ_jump("/blog/admin/my_articles","edit article successfully!");
+		}else{
+			succ_jump("/blog/super/all_articles","edit article successfully!");
+		}
+		
 	}
 
 	public function deleteArticle(){
@@ -274,7 +279,11 @@ class AdminController extends \core\Starter
 		$commentModel->deleteCommentByArticle($id);
 
 		$model->deleteOne($id);
-		succ_jump("/blog/admin/my_articles","delete article successfully!");
+		if($_SESSION['type'] != 'admin'){
+			succ_jump("/blog/admin/my_articles","delete article successfully!");
+		}else{
+			succ_jump("/blog/super/all_articles","delete article successfully!");
+		}
 	}
 
 	public function comment_check(){
@@ -295,7 +304,7 @@ class AdminController extends \core\Starter
 			return;
 		}
 		unset($_SESSION['captcha']);
-		
+
 		$model = new CommentModel();
 		$data['content'] = $comment;
 		$data['article_no'] = $article_no;
@@ -315,6 +324,28 @@ class AdminController extends \core\Starter
 			return;
 		}
 	}
+
+	public function my_comments(){
+		$model = new CommentModel();
+		$comments = $model->getCommentByUid($_SESSION['uid']);
+		$this->assign('comments', $comments);
+		//var_dump($comments);
+		//die();
+		$this->display("my_comments.php");
+	}
+
+	public function deleteComment(){
+		$comment_no = get('id');
+		$model = new CommentModel();
+		$res =  $model->deleteComment($comment_no, $_SESSION['uid']);
+		if($res){
+			succ_jump("/blog/admin/my_comments","delete comment successfully");
+		}else{
+			fail_jump("/blog/admin/my_comments","you can't delete this comment");
+		}
+	}
+
+
 
 
 

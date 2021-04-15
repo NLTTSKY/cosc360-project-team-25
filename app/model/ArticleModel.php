@@ -65,4 +65,11 @@ class ArticleModel extends Model{
 	public function addClick($id){
 		$res = $this->query("UPDATE articles SET click=click+1 WHERE article_no='".$id."'");
 	}
+
+	public function getAllArticle(){
+		$res = $this->query("SELECT a.article_no, a.title, c.cate_name, a.click, a.verify,a.create_time FROM articles a LEFT JOIN categories c ON a.cate_id = c.cate_id ")->fetchAll();
+		return $res;
+	}
+
+	
 }
