@@ -16,7 +16,7 @@ class file
 			mkdir($this->path.date('Ymd'),'077', true);
 		}
 		$message = date('Y-m-d H:i:s')."      " . json_encode($message);
-		return file_put_contents($this->path.date('Ymd').'/'.date('Y-m-d-H').$file.'.log', $message.PHP_EOL, FILE_APPEND);
+		return file_put_contents($this->path.date('Ymd').'/'.date('Y-m-d').$file.'.log', $message.PHP_EOL, FILE_APPEND);
 	}
 }
 

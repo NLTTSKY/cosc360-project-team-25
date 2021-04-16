@@ -84,7 +84,7 @@
          <div id="main-right"></div>
      </div>
 
-    <?php include 'message.php'; ?>
+    <?php include 'message.php';include 'footer.php'; ?>
 </body>
 <script type="text/javascript">
   $(function(){

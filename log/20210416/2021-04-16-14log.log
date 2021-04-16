@@ -1,7 +1,0 @@
-2021-04-16 14:10:11      "Type:forward \t Controller:Admin \t Action:index"
-2021-04-16 14:10:12      "Type:forward \t Controller:Admin \t Action:my_articles"
-2021-04-16 14:10:14      "Type:forward \t Controller:Admin \t Action:index"
-2021-04-16 14:10:15      "Type:forward \t Controller:Admin \t Action:edit_profile"
-2021-04-16 14:10:17      "Type:forward \t Controller:Admin \t Action:index"
-2021-04-16 14:10:18      "Type:forward \t Controller:Admin \t Action:change_password"
-2021-04-16 14:10:20      "Type:forward \t Controller:Admin \t Action:index"

@@ -36,7 +36,7 @@ class ArticleModel extends Model{
 	}
 
 	public function getVerifyArticleById($id){
-		$res = $this->query("SELECT u.nick_name,a.article_no, a.content, a.cate_id, a.title, c.cate_name, a.click, a.last_update_time  FROM articles a LEFT JOIN categories c ON a.cate_id = c.cate_id LEFT JOIN users u ON a.uid = u.uid  LEFT JOIN article_images i ON i.article_no = a.article_no WHERE verify = 1 AND a.article_no ='".$id."'")->fetchAll();
+		$res = $this->query("SELECT u.nick_name,a.article_no, a.content, a.cate_id, a.title, c.cate_name, a.click, a.last_update_time  FROM articles a LEFT JOIN categories c ON a.cate_id = c.cate_id LEFT JOIN users u ON a.uid = u.uid WHERE verify = 1 AND a.article_no ='".$id."'")->fetchAll();
 		return $res;
 	}
 
