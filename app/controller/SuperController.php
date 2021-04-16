@@ -21,7 +21,28 @@ class SuperController extends \core\Starter {
 
 	public function all_users(){
 		$model = new UserModel();
-		$users = $model->lists();
+		if(isset($_POST['search_type']) && isset($_POST['keyword'])){
+			$type = post('search_type');
+			$keyword = post('keyword');
+			switch ($type) {
+				case 'name':
+					$users = $model->getUsersByName($keyword);
+					break;
+				case 'email':
+					$users = $model->getUsersByEmail($keyword);
+					break;
+				case 'post':
+					$users = $model->getUsersByPost($keyword);
+					break;
+				default:
+					$users = $model->lists();
+					break;
+			}
+			$this->assign('search_type', $type);
+			$this->assign('keyword', $keyword);
+		}else{
+			$users = $model->lists();
+		}
 		$this->assign('users', $users);
 		//var_dump($users);
 		
@@ -78,6 +99,10 @@ class SuperController extends \core\Starter {
 		//var_dump($articles);
 		//die();
 		$this->display('all_reports.php');
+	}
+
+	public function search_user(){
+
 	}
 
 

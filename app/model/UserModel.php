@@ -59,6 +59,26 @@ class UserModel extends Model{
 		$re = $this->update($this->table,array('disabled'=>0),array('uid'=>$id));
 		return $re->rowCount();
 	}
+
+	public function getUsersByName($keyword){
+		$sql = "SELECT * FROM users WHERE nick_name LIKE '%".$keyword."%'";
+		$res = $this->query($sql)->fetchAll();
+		return $res;
+	}
+
+	public function getUsersByEmail($keyword){
+		$sql = "SELECT * FROM users WHERE email LIKE '%".$keyword."%'";
+		$res = $this->query($sql)->fetchAll();
+		return $res;
+	}
+
+	public function getUsersByPost($keyword){
+		$sql = "SELECT * FROM users WHERE uid IN ( SELECT DISTINCT a.uid FROM articles a WHERE a.title LIKE '%".$keyword."%' OR a.content LIKE '%".$keyword."%' )";
+		$res = $this->query($sql)->fetchAll();
+		return $res;
+	}
+
+
 }
 
 

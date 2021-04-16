@@ -1,11 +1,11 @@
 {
-    "name": "lol/information_plaform",
+    "name": "blog/information_plaform",
     "description": "this is final project",
     "type": "library",
     "authors": [
         {
-            "name": "ychen54",
-            "email": "ychen54@academic.rrc.ca"
+            "name": "tian",
+            "email": "t.tian981225@gmail.com"
         }
     ],
     "minimum-stability": "dev",

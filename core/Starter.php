@@ -32,7 +32,7 @@ class Starter
 				header("Refresh:3;url=".PROJECT);
 			}
 			//p();
-			//Log::log("Controller:".ucfirst($route->ctrl).'Controller      action:'.$action);
+			Log::log("Type:forward \t Controller:".ucfirst($route->ctrl)." \t Action:".$action);
 		}else{
 			var_dump("can't find controller which named ".$ctrlClass);
 			header("Refresh:3;url=".PROJECT);

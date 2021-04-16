@@ -47,7 +47,13 @@
                     <div class="blog">
                         <div class="blog-head">
                             <span style="font-size: 20px;font-weight: bold;"> 
-                            <a href="/blog/index/article/id/<?php echo $v['article_no']; ?>"><?php echo $v['title']; ?></a></span> 
+                              <a href="/blog/index/article/id/<?php echo $v['article_no']; ?>">
+                                <?php echo $v['title']; ?>
+                                <?php if($k<2): ?>
+                                  <span style="font-size: 16px;font-weight: normal;color: red;">hot</span> 
+                                <?php endif; ?>    
+                              </a>
+                            </span> 
                             <span style="float: right;">click: <?php echo $v['click']; ?></span>
                         </div>
                         <div class="blog-body">

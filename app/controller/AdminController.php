@@ -6,6 +6,7 @@ use \app\model\CategoryModel;
 use \app\model\ArticleModel;
 use \app\model\CommentModel;
 
+use \core\lib\Log;
 
 class AdminController extends \core\Starter
 {
@@ -63,10 +64,12 @@ class AdminController extends \core\Starter
 			$data['password'] = password_hash($newpassword, PASSWORD_DEFAULT);
 			$model->updatePassword($data, $_SESSION['uid']);
 			$arr['code'] = 1;
-			$arr['msg'] = 'change password successfully, please login again!';
+			$arr['msg'] = 'change password successfully, take effect next login!';
+			Log::log("Type:change password \t userid[".$_SESSION['uid']."] \t Content:change password Successfully");
 		}else{
 			$arr['code'] = 0;
 			$arr['msg'] = 'old password error, you can reset password use forget password in login page!';
+			Log::log("Type:change password \t userid[".$_SESSION['uid']."] \t Content:change password failed");
 		}
 		echo json_encode($arr);
 	}
@@ -117,9 +120,11 @@ class AdminController extends \core\Starter
 		
 		$re = $model->setOne($_SESSION['uid'], $data);
 		if($re < 1){
+			Log::log("Type:edit profile \t userid[".$_SESSION['uid']."] \t Content:edit profile failed");
 			fail_jump("/blog/admin/edit_profile", "Edit Profile error!");
 			return;
 		}
+		Log::log("Type:edit profile \t userid[".$_SESSION['uid']."] \t Content:edit profile Successfully");
 		succ_jump("/blog/admin/index", "Edit Profile Successfully!");
 	}
 
@@ -175,9 +180,11 @@ class AdminController extends \core\Starter
 		$artmodel = new ArticleModel();
 		$art_no = $artmodel->addOne($data);
 		if($art_no<1){
+			Log::log("Type:add article \t userid[".$_SESSION['uid']."] \t Content:add article failed");
 			fail_jump("/blog/admin/new_article","create article failed!");
 			return;
 		}
+		Log::log("Type:add article \t userid[".$_SESSION['uid']."] \t Content:add article successfully");
 		succ_jump("/blog/admin/my_articles","create article successfully!");
 	}
 
@@ -196,6 +203,7 @@ class AdminController extends \core\Starter
 			}
 			if(!$flag){
 				// the article didn't create by user
+				Log::log("Type:edit article \t userid[".$_SESSION['uid']."] \t Content:Edit non-self articles");
 				fail_jump("/blog/admin/my_articles","You cannot edit articles that are not published by you");
 			}
 		}
@@ -204,7 +212,6 @@ class AdminController extends \core\Starter
 		$catemodel = new CategoryModel();
 		$parentCate = $catemodel->getParentCate();
 		$childCate = $catemodel->listByParentId($parentCate[0]['cate_id']);
-
 		$this->assign('parent', $parentCate);
 		$this->assign('childCate', $childCate);
 		$this->display('edit_article.php');
@@ -225,6 +232,7 @@ class AdminController extends \core\Starter
 			}
 			if(!$flag){
 				// the article didn't create by user
+				Log::log("Type:edit article \t userid[".$_SESSION['uid']."] \t Content:Edit non-self articles");
 				fail_jump("/blog/admin/editArticle/id/".$data['article_no'],"you can't edit this article");
 				exit();
 			}
@@ -249,6 +257,7 @@ class AdminController extends \core\Starter
 		$data['uid'] = $_SESSION['uid'];
 		$data['last_update_time'] = date("Y-m-d H:i:s", time());
 		$artmodel->setOne($data['article_no'], $data);
+		Log::log("Type:edit article \t userid[".$_SESSION['uid']."] \t Content:edit article successfully");
 		if($_SESSION['type'] != 'admin'){
 			succ_jump("/blog/admin/my_articles","edit article successfully!");
 		}else{
@@ -272,6 +281,7 @@ class AdminController extends \core\Starter
 			}
 			if(!$flag){
 				// the article didn't create by user
+				Log::log("Type:delete article \t userid[".$_SESSION['uid']."] \t Content:delete non-self articles");
 				fail_jump("/blog/admin/my_articles","you can't delete this article");
 			}
 		}
@@ -279,7 +289,9 @@ class AdminController extends \core\Starter
 		$commentModel->deleteCommentByArticle($id);
 
 		$model->deleteOne($id);
+		Log::log("Type:delete article \t userid[".$_SESSION['uid']."] \t Content:delete article successfully");
 		if($_SESSION['type'] != 'admin'){
+
 			succ_jump("/blog/admin/my_articles","delete article successfully!");
 		}else{
 			succ_jump("/blog/super/all_articles","delete article successfully!");
@@ -297,13 +309,11 @@ class AdminController extends \core\Starter
 			return;
 		}
 		if(strtolower($captcha) != $_SESSION['captcha']){
-			unset($_SESSION['captcha']);
 			$arr['code'] = 0;
 			$arr['msg'] = "captcha error!";
 			echo json_encode($arr);
 			return;
 		}
-		unset($_SESSION['captcha']);
 
 		$model = new CommentModel();
 		$data['content'] = $comment;
@@ -315,6 +325,7 @@ class AdminController extends \core\Starter
 		if($count >0){
 			$arr['code'] = 1;
 			$arr['msg'] = "comment Successfully";
+			Log::log("Type:add comment \t userid[".$_SESSION['uid']."] \t Content:add comment successfully");
 			echo json_encode($arr);
 			return;
 		}else{
@@ -338,6 +349,7 @@ class AdminController extends \core\Starter
 		$comment_no = get('id');
 		$model = new CommentModel();
 		$res =  $model->deleteComment($comment_no, $_SESSION['uid']);
+		Log::log("Type:add comment \t userid[".$_SESSION['uid']."] \t Content:delete comment successfully");
 		if($res){
 			succ_jump("/blog/admin/my_comments","delete comment successfully");
 		}else{

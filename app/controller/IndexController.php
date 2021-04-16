@@ -4,6 +4,8 @@ use \app\model\ArticleModel;
 use \app\model\UserModel;
 use \app\model\CommentModel;
 
+use \core\lib\Log;
+
 class IndexController extends \core\Starter
 {
 	public function __construct(){
@@ -28,8 +30,6 @@ class IndexController extends \core\Starter
 		if($article){
 			$articleModel->addClick($id);
 		}
-		
-		//die();
 		$commentModel = new CommentModel();
 		$comments = $commentModel->getCommentByArticle($id);
 		if(empty($article)){
@@ -97,11 +97,13 @@ class IndexController extends \core\Starter
 		if( empty($res) ){
 			$arr['code'] = -1;
 			$arr['msg'] = 'your email or username incorrect';
+			Log::log("Type:Reset Password \t username[".$username."] \t Content:reset password failed");
 		}else{
 			$data['password'] = password_hash('123456', PASSWORD_DEFAULT);
 			$model->updatePassword($data, $res['uid']);
 			$arr['code'] = 1;
 			$arr['msg'] = $res['nick_name'].' ,your new password(123456) has been send to '.$res['email'];
+			Log::log("Type:Reset Password \t username[".$username."] \t Content:reset password Successfully");
 		}
 		echo json_encode($arr);
 	}
@@ -124,10 +126,11 @@ class IndexController extends \core\Starter
 			$_SESSION['uid'] = $res['uid'];
 			$_SESSION['nickname'] = $res['nick_name'];
 			$_SESSION['type'] = $res['type'];
-
+			Log::log("Type:Login \t username[".$username."] \t Content:Login Successfully");
 			succ_jump("/blog/admin/index", "Login Successfully");
 			return;
 		}else{
+			Log::log("Type:Login \t username[".$username."] \t Content:Login failed");
 			fail_jump("/blog/index/login", "password error");
 			return;
 		}
@@ -175,16 +178,17 @@ class IndexController extends \core\Starter
 	    		// resize image size
 				resize_image($img['image_path'],$data['profile_path']);
 			}
-			unset($data['captcha']);
 			$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 			$data['type'] = 'login';
 			$data['create_time'] = date("Y-m-d H:i:s", time());
 			$data['last_update_time'] = date("Y-m-d H:i:s", time());
 			$res1 = $model->addOne($data);
 			if($res1 < 1){
+				Log::log("Type:Register \t username[".$data['nick_name']."] \t Content:Register Failed");
 				fail_jump("/blog/index/register", "register error!");
 				return;
 			}
+			Log::log("Type:Register \t username[".$data['nick_name']."] \t Content:Register Successfully");
 			succ_jump("/blog/index/login", "register Successfully!");
 			return;
 		}else{

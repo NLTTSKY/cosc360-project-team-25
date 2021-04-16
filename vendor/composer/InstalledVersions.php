@@ -19,11 +19,20 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '5f87028671f2c031239d42c82aa786ce6dc18e2d',
-    'name' => 'lol/information_plaform',
+    'reference' => '9a04a13750e51363a50c1f0e2304b32b907af63d',
+    'name' => 'blog/information_plaform',
   ),
   'versions' => 
   array (
+    'blog/information_plaform' => 
+    array (
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '9a04a13750e51363a50c1f0e2304b32b907af63d',
+    ),
     'catfan/medoo' => 
     array (
       'pretty_version' => 'dev-master',
@@ -45,21 +54,12 @@ private static $installed = array (
     ),
     'filp/whoops' => 
     array (
-      'pretty_version' => '2.9.0',
-      'version' => '2.9.0.0',
+      'pretty_version' => '2.12.0',
+      'version' => '2.12.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '2ec31f3adc54c71a59c5e3c2143d7a0e2f8899f8',
-    ),
-    'lol/information_plaform' => 
-    array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '5f87028671f2c031239d42c82aa786ce6dc18e2d',
+      'reference' => 'd501fd2658d55491a2295ff600ae5978eaad7403',
     ),
     'psr/log' => 
     array (
@@ -69,7 +69,7 @@ private static $installed = array (
       array (
         0 => '1.1.x-dev',
       ),
-      'reference' => 'dd738d0b4491f32725492cf345f6b501f5922fec',
+      'reference' => 'a18c1e692e02b84abbafe4856c3cd7cc6903908c',
     ),
     'twbs/bootstrap' => 
     array (

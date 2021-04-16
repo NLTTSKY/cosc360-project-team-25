@@ -31,7 +31,7 @@ class ArticleModel extends Model{
 	}
 
 	public function getVerifyArticle(){
-		$res = $this->query("SELECT a.article_no, a.cate_id, a.title, c.cate_name, a.click, a.last_update_time FROM articles a LEFT JOIN categories c ON a.cate_id = c.cate_id WHERE verify = 1 ORDER BY a.last_update_time DESC")->fetchAll();
+		$res = $this->query("SELECT a.article_no, a.cate_id, a.title, c.cate_name, a.click, a.last_update_time FROM articles a LEFT JOIN categories c ON a.cate_id = c.cate_id WHERE verify = 1 ORDER BY a.click DESC")->fetchAll();
 		return $res;
 	}
 
@@ -67,7 +67,7 @@ class ArticleModel extends Model{
 	}
 
 	public function getAllArticle(){
-		$res = $this->query("SELECT a.article_no, a.title, c.cate_name, a.click, a.verify,a.create_time FROM articles a LEFT JOIN categories c ON a.cate_id = c.cate_id ")->fetchAll();
+		$res = $this->query("SELECT a.article_no, a.title, c.cate_name, a.click, a.verify,a.create_time FROM articles a LEFT JOIN categories c ON a.cate_id = c.cate_id ORDER BY a.create_time DESC")->fetchAll();
 		return $res;
 	}
 
